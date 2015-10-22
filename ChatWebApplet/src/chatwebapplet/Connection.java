@@ -33,11 +33,7 @@ public class Connection extends Thread {
     private ServerSocket serverSocket;
     private Socket socket;
     
-    public String nameOfUser;
-    public String uniqueID;
-    public static int count = 0;
-    public static ArrayList<String> messages = new ArrayList<>();
-    public static HashMap<String, String> idNameMap = new HashMap<>();
+    public String uniqueID; // which we get from server
     
     public Connection(AppletReceiver appletReceiver, JTextArea serverMessagesArea) {
         this.appletReceiver = appletReceiver;
