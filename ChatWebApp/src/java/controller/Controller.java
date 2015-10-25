@@ -1,3 +1,5 @@
+package controller;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -23,7 +25,8 @@ public class Controller extends HttpServlet {
     public static ArrayList<String> messages = new ArrayList<String>();
     // ID -> name
     public static HashMap<String, String> idNameMap = new HashMap<String, String>();
-    
+    // ID -> indexOfMessagesAlreadySeen
+    public static HashMap<String, Integer> idMessageIndexMap = new HashMap<String, Integer>();
     // map<ID, numberofSeenMessage>
 
     /**
@@ -38,13 +41,10 @@ public class Controller extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
+        // What is this stuff ---------
         PrintWriter out = response.getWriter();
         try {
-            // 1. Find type of request -> send?, connect?
-            // request parameter called cmd inside of the request that says which we want
-            // when we click buttoms before -> those set these parameters
-            
-            /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
@@ -56,6 +56,26 @@ public class Controller extends HttpServlet {
             out.println("</html>");
         } finally {
             out.close();
+        }
+        // --------------------------------
+        
+        // 1. Find type of request -> send?, connect? -->
+        // do what it corresponds to.
+        if ("CONNECT".equals(request.getParameter("cmd"))) {
+            // Get name parameter
+            //connect(name);
+        } else if ("SEND".equals(request.getParameter("cmd"))) {
+           // Get ID param
+            // Get name param
+            //send(id, message);
+        } else if ("RECIEVE".equals(request.getParameter("cmd"))) {
+            // GET ID param
+            // recieve(id);
+        } else if ("DISCONNECT".equals(request.getParameter("cmd"))) {
+            // GET ID param
+            // disconnect(id);
+        } else {
+            
         }
     }
 
@@ -102,13 +122,17 @@ public class Controller extends HttpServlet {
         // Set unique ID
             String uniqueID = ""+ count++;
             
-            // Add this key, value pair to the hash map
+            // Add this key, value pair to the idName hash map
             idNameMap.put(uniqueID, name);
             
+            // Add key, value pair to the idMessageIndex hash map
+            idMessageIndexMap.put(uniqueID, 0);
+            
             // Create 'entered' string
-            String userHasEnteredString = name + "has entered the chat room";
+            String userHasEnteredString = name + " has entered the chat room";
             // Add it to our messages
             messages.add(userHasEnteredString);
+            
            // Send client ID string to the client; !!! TO DO
     }
     
@@ -116,20 +140,38 @@ public class Controller extends HttpServlet {
         String name = idNameMap.get(id);
         if (name != null) {
             messages.add(name+": "+message);
-            return "Received";
+            // Send Sent to the client if it worked;
+            return "Sent";
         } else {
-            return "Failure to Receive";
+            // Send Failure to Send to the client if didn't worked;
+            return "Failure to Send";
         }
     }
+  
+  public String recieve(String id) {
+      // Get index:
+      Integer index = idMessageIndexMap.get(id);
+      // Create a string with the messages from index to 
+      // the length of the array list. 
+      String unseenMessages = "";
+      for (int i = index; i < messages.size(); i++) {
+          unseenMessages = messages.get(i) + "\n";
+      }
+      // Return the formatted string 
+      return unseenMessages;
+  }
     
-    public String disconnect(String id) {
+ public String disconnect(String id) {
        String name = idNameMap.get(id);
         if (name != null) {
             messages.add(name+" has left the chat room");
+            idNameMap.remove(id);
+            // Send these strings back to the client
             return "Disconnect request confirmed";
         } else {
             return "Disconnect request failed";
         }
+        
     }
 
 }

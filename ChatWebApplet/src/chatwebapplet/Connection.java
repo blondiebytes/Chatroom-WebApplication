@@ -40,20 +40,8 @@ public class Connection extends Thread {
         this.serverMessagesArea = serverMessagesArea;
     }
     
-    public void connect(String name) {
-        // Set name of user and unique ID
-            nameOfUser = name;
-            uniqueID = ""+ count++;
-            
-            // Add this key, value pair to the hash map
-            idNameMap.put(uniqueID, nameOfUser);
-            
-            // Create 'entered' string
-            String userHasEnteredString = nameOfUser + "has entered the chat room";
-            // Add it to our messages
-            messages.add(userHasEnteredString);
-           // Send client ID string to the client; !!! TO DO
-    }
+    // request parameter called cmd inside of the request that says which we want
+    // when we click buttoms before -> those set these parameters
 
     public void connectToServer() {
         try {
@@ -89,26 +77,6 @@ public class Connection extends Thread {
         return -1;
     }
     
-    public String send(String id, String message) {
-        String name = idNameMap.get(id);
-        if (name != null) {
-            messages.add(name+": "+message);
-            return "Received";
-        } else {
-            return "Failure to Receive";
-        }
-    }
-    
-    public String disconnect(String id) {
-       String name = idNameMap.get(id);
-        if (name != null) {
-            messages.add(name+" has left the chat room");
-            return "Disconnect request confirmed";
-        } else {
-            return "Disconnect request failed";
-        }
-    }
-    
     public void disconnectToServer() {
         setConnected(false);
         sendHttpRequest("cmd","Disconnect");
@@ -124,7 +92,7 @@ public class Connection extends Thread {
         try {
             URL sourceURL = appletReceiver.getDocumentBase();
             String host = sourceURL.getHost();
-            String webAppName = "/ServletPushesToAppletWebAppAlt";
+            String webAppName = "/ChatWebApp";
             String servletName = "/Controller";
             String address = "http://" + host + ":8080" + webAppName + servletName;
             QueryString query = buildQuery(requestData);
