@@ -26,7 +26,7 @@ public class Connection extends Thread {
     
     private final int PORT = 12333;
     private Scanner networkInput;
-    private AppletReceiver appletReceiver;
+    private ChatWebApplet appletReceiver;
     private JTextArea serverMessagesArea;
     private boolean running = true;
     private boolean connected = false;
@@ -35,7 +35,7 @@ public class Connection extends Thread {
     
     public String uniqueID; // which we get from server
     
-    public Connection(AppletReceiver appletReceiver, JTextArea serverMessagesArea) {
+    public Connection(ChatWebApplet appletReceiver, JTextArea serverMessagesArea) {
         this.appletReceiver = appletReceiver;
         this.serverMessagesArea = serverMessagesArea;
     }
