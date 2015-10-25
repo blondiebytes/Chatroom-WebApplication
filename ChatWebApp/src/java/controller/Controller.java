@@ -27,7 +27,6 @@ public class Controller extends HttpServlet {
     public static HashMap<String, String> idNameMap = new HashMap<String, String>();
     // ID -> indexOfMessagesAlreadySeen
     public static HashMap<String, Integer> idMessageIndexMap = new HashMap<String, Integer>();
-    // map<ID, numberofSeenMessage>
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -57,23 +56,29 @@ public class Controller extends HttpServlet {
         } finally {
             out.close();
         }
+        // Do we also need to have a series of printwriters to send back messages?
         // --------------------------------
         
         // 1. Find type of request -> send?, connect? -->
-        // do what it corresponds to.
+        // do what it corresponds to. OR do we do this in the get
         if ("CONNECT".equals(request.getParameter("cmd"))) {
-            // Get name parameter
-            //connect(name);
+            // Get value of name parameter
+            String name = request.getParameter("name");
+            connect(name);
         } else if ("SEND".equals(request.getParameter("cmd"))) {
            // Get ID param
-            // Get name param
-            //send(id, message);
+            String id = request.getParameter("id");
+            // Get message param
+            String message = request.getParameter("message");
+            send(id, message);
         } else if ("RECIEVE".equals(request.getParameter("cmd"))) {
             // GET ID param
-            // recieve(id);
+            String id = request.getParameter("id");
+            recieve(id);
         } else if ("DISCONNECT".equals(request.getParameter("cmd"))) {
             // GET ID param
-            // disconnect(id);
+            String id = request.getParameter("id");
+            disconnect(id);
         } else {
             
         }
