@@ -1,10 +1,21 @@
 package chatwebapplet;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 
 public class ChatWebApplet extends javax.swing.JApplet {
 
-    private Connection connection;
+  //  private Connection connection;
+    private String id;
 
     public void init() {
         try {
@@ -12,19 +23,22 @@ public class ChatWebApplet extends javax.swing.JApplet {
 
                 public void run() {
                     initComponents();
-                    launchconnection();
+                  //  launchconnection();
                 }
             });
         } catch (Exception ex) {
             receivedMessageArea.setText(ex.toString());
         }
+        RecieveThread reciever = new RecieveThread(this);
+        reciever.run();
+        
     }
 
 
-    private void launchconnection() {
-        connection = new Connection(this, receivedMessageArea);
-        connection.start();
-    }
+  //  private void launchconnection() {
+  //      connection = new Connection(this, receivedMessageArea);
+  //      connection.start();
+  //  }
 
     /** This method is called from within the init() method to
      * initialize the form.
@@ -131,24 +145,129 @@ public class ChatWebApplet extends javax.swing.JApplet {
     }// </editor-fold>//GEN-END:initComponents
 
     private void connectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectButtonActionPerformed
-        if (!connection.isConnected()) {
-            connection.connectToServer();
+       // if (!connection.isConnected()) {
+       //     connection.connectToServer();
+       // }
+      try {
+            QueryString cmd = new QueryString("cmd", "CONNECT");
+            QueryString nameQuery = new QueryString("name",messageToSendTextField.getText());
+            URL url;
+            URLConnection urlConnection;
+            String address = "http://localhost:8080/ChatWebApp/Controller";
+            url = new URL(address + "?" + cmd + "@" + nameQuery);
+            urlConnection = url.openConnection();
+            InputStream in = urlConnection.getInputStream();
+            InputStreamReader r = new InputStreamReader(in);
+            int c;
+            String answer = "";
+            while ((c = r.read()) != -1) {
+                answer += (char)c;
+            }
+            // WHAT DO WE DO WITH ANSWER?
+            
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(ChatWebApplet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(ChatWebApplet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ChatWebApplet.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
 }//GEN-LAST:event_connectButtonActionPerformed
 
     private void disconnectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disconnectButtonActionPerformed
-        if (connection.isConnected()) {
-            connection.disconnectFromServer();
+      try {
+            QueryString cmd = new QueryString("cmd", "DISCONNECT");
+            QueryString idQuery = new QueryString("id",id);
+            URL url;
+            URLConnection urlConnection;
+            String address = "http://localhost:8080/ChatWebApp/Controller";
+            url = new URL(address + "?" + cmd + "@" + idQuery);
+            urlConnection = url.openConnection();
+            InputStream in = urlConnection.getInputStream();
+            InputStreamReader r = new InputStreamReader(in);
+            int c;
+            String answer = "";
+            while ((c = r.read()) != -1) {
+                answer += (char)c;
+            }
+            // WHAT DO WE DO WITH ANSWER?
+            
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(ChatWebApplet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(ChatWebApplet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ChatWebApplet.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+     //   if (connection.isConnected()) {
+     //       connection.disconnectFromServer();
+     //   }
+        
+        
 }//GEN-LAST:event_disconnectButtonActionPerformed
 
     private void sendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendButtonActionPerformed
         // TODO add your handling code here:
         // Set ID, set message
+         try {
+            QueryString cmd = new QueryString("cmd", "SEND");
+            QueryString messageQuery = new QueryString("message",messageToSendTextField.getText());
+            QueryString idQuery = new QueryString("id",id);
+            URL url;
+            URLConnection urlConnection;
+            String address = "http://localhost:8080/ChatWebApp/Controller";
+            url = new URL(address + "?" + cmd + "@" + idQuery + "@" + messageQuery);
+            urlConnection = url.openConnection();
+            InputStream in = urlConnection.getInputStream();
+            InputStreamReader r = new InputStreamReader(in);
+            int c;
+            String answer = "";
+            while ((c = r.read()) != -1) {
+                answer += (char)c;
+            }
+            // WHAT DO WE DO WITH ANSWER?
+            
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(ChatWebApplet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(ChatWebApplet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ChatWebApplet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_sendButtonActionPerformed
 
+    protected void recieve() {
+           try {
+            QueryString cmd = new QueryString("cmd", "RECIEVE");
+            QueryString idQuery = new QueryString("id",id);
+            URL url;
+            URLConnection urlConnection;
+            String address = "http://localhost:8080/ChatWebApp/Controller";
+            url = new URL(address + "?" + cmd + "@" + idQuery);
+            urlConnection = url.openConnection();
+            InputStream in = urlConnection.getInputStream();
+            InputStreamReader r = new InputStreamReader(in);
+            int c;
+            String answer = "";
+            while ((c = r.read()) != -1) {
+                answer += (char)c;
+            }
+            // WHAT DO WE DO WITH ANSWER?
+            
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(ChatWebApplet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(ChatWebApplet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ChatWebApplet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     private void messageToSendTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_messageToSendTextFieldActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_messageToSendTextFieldActionPerformed
 
     public void stop() {

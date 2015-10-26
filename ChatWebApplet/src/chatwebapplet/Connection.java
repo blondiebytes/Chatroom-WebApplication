@@ -90,7 +90,7 @@ public class Connection extends Thread {
     
     // Create a function to always be calling recieve
 
-    public void sendHttpRequest(String... requestData) {
+    public void sendHttpRequest(String...requestData) {
         try {
             URL sourceURL = appletReceiver.getDocumentBase();
             String host = sourceURL.getHost();
@@ -98,8 +98,9 @@ public class Connection extends Thread {
             String servletName = "/Controller";
             String address = "http://" + host + ":8080" + webAppName + servletName;
             QueryString query = buildQuery(requestData);
-            URL url = new URL(address + "?" + query);
-            URLConnection urlConnection = url.openConnection();
+            // Building an address
+            URL url = new URL(address + "?" + query + "" + query);
+            URLConnection urlConnection = url.openConnection(); /*sending address w/ params*/
             String confirmation = getResponse(urlConnection);
             serverMessagesArea.append(confirmation);
         } catch (IOException ex) {
