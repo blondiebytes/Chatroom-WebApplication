@@ -145,8 +145,8 @@ public class ChatWebApplet extends javax.swing.JApplet {
     }// </editor-fold>//GEN-END:initComponents
 
     private void connectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectButtonActionPerformed
-       // if (!connection.isConnected()) {
-       //     connection.connectToServer();
+    //   if (!connection.isConnected()) {
+    //        connection.connectToServer();
        // }
       try {
             QueryString cmd = new QueryString("cmd", "CONNECT");
@@ -154,7 +154,7 @@ public class ChatWebApplet extends javax.swing.JApplet {
             URL url;
             URLConnection urlConnection;
             String address = "http://localhost:8080/ChatWebApp/Controller";
-            url = new URL(address + "?" + cmd + "@" + nameQuery);
+            url = new URL(address + "?" + cmd + "&" + nameQuery);
             urlConnection = url.openConnection();
             InputStream in = urlConnection.getInputStream();
             InputStreamReader r = new InputStreamReader(in);
@@ -183,7 +183,7 @@ public class ChatWebApplet extends javax.swing.JApplet {
             URL url;
             URLConnection urlConnection;
             String address = "http://localhost:8080/ChatWebApp/Controller";
-            url = new URL(address + "?" + cmd + "@" + idQuery);
+            url = new URL(address + "?" + cmd + "&" + idQuery);
             urlConnection = url.openConnection();
             InputStream in = urlConnection.getInputStream();
             InputStreamReader r = new InputStreamReader(in);
@@ -226,7 +226,7 @@ public class ChatWebApplet extends javax.swing.JApplet {
             URL url;
             URLConnection urlConnection;
             String address = "http://localhost:8080/ChatWebApp/Controller";
-            url = new URL(address + "?" + cmd + "@" + idQuery + "@" + messageQuery);
+            url = new URL(address + "?" + cmd + "&" + idQuery + "&" + messageQuery);
             urlConnection = url.openConnection();
             InputStream in = urlConnection.getInputStream();
             InputStreamReader r = new InputStreamReader(in);
@@ -261,7 +261,7 @@ public class ChatWebApplet extends javax.swing.JApplet {
             URL url;
             URLConnection urlConnection;
             String address = "http://localhost:8080/ChatWebApp/Controller";
-            url = new URL(address + "?" + cmd + "@" + idQuery);
+            url = new URL(address + "?" + cmd + "&" + idQuery);
             urlConnection = url.openConnection();
             InputStream in = urlConnection.getInputStream();
             InputStreamReader r = new InputStreamReader(in);
