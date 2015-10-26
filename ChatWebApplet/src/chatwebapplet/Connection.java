@@ -53,7 +53,7 @@ public class Connection extends Thread {
                 return;
             }
             String portString = "" + port;
-            sendHttpRequest("cmd","Connect","port",portString);
+            sendHttpRequest("cmd","CONNECT","port",portString);
             socket = serverSocket.accept();
             networkInput = new Scanner(socket.getInputStream());
             serverSocket.close();
@@ -77,9 +77,9 @@ public class Connection extends Thread {
         return -1;
     }
     
-    public void disconnectToServer() {
+    public void disconnectFromServer() {
         setConnected(false);
-        sendHttpRequest("cmd","Disconnect");
+        sendHttpRequest("cmd","DISCONNECT");
         try {
             socket.close();
         } catch (IOException ex) {
@@ -87,6 +87,8 @@ public class Connection extends Thread {
         }    
         socket = null;
     }
+    
+    // Create a function to always be calling recieve
 
     public void sendHttpRequest(String... requestData) {
         try {
