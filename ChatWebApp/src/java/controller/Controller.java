@@ -42,13 +42,10 @@ public class Controller extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        // What is this stuff ---------
         out = response.getWriter();
         // Do we also need to have a series of printwriters to send back messages?
-        // --------------------------------
         
         // 1. Find type of request -> send?, connect? -->
-        // do what it corresponds to. OR do we do this in the get
         if ("CONNECT".equals(request.getParameter("cmd"))) {
             // Get value of name parameter
             String name = request.getParameter("name");
