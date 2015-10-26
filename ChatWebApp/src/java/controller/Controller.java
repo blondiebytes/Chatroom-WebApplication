@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class Controller extends HttpServlet {
     
+    public PrintWriter out;
     public static int count = 0;
     public static ArrayList<String> messages = new ArrayList<String>();
     // ID -> name
@@ -42,20 +43,7 @@ public class Controller extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         // What is this stuff ---------
-        PrintWriter out = response.getWriter();
-        try {
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Controller</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Controller at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        } finally {
-            out.close();
-        }
+        out = response.getWriter();
         // Do we also need to have a series of printwriters to send back messages?
         // --------------------------------
         
@@ -138,23 +126,23 @@ public class Controller extends HttpServlet {
             // Add it to our messages
             messages.add(userHasEnteredString);
             
-           // Send client ID string to the client; !!! TO DO
-            
+           // Send client ID string to the client
+            out.print(uniqueID);
     }
     
-  public String send(String id, String message) {
+  public void send(String id, String message) {
         String name = idNameMap.get(id);
         if (name != null) {
             messages.add(name+": "+message);
             // Send Sent to the client if it worked;
-            return "Sent";
+            out.print("Sent");
         } else {
             // Send Failure to Send to the client if didn't worked;
-            return "Failure to Send";
+            out.print("Failure to Send");
         }
     }
   
-  public String recieve(String id) {
+  public void recieve(String id) {
       // Get index:
       Integer index = idMessageIndexMap.get(id);
       // Create a string with the messages from index to 
@@ -164,18 +152,18 @@ public class Controller extends HttpServlet {
           unseenMessages = messages.get(i) + "\n";
       }
       // Return the formatted string 
-      return unseenMessages;
+      out.print(unseenMessages);
   }
     
- public String disconnect(String id) {
+ public void disconnect(String id) {
        String name = idNameMap.get(id);
         if (name != null) {
             messages.add(name+" has left the chat room");
             idNameMap.remove(id);
             // Send these strings back to the client
-            return "Disconnect request confirmed";
+            out.print("Disconnect request confirmed");
         } else {
-            return "Disconnect request failed";
+            out.print("Disconnect request failed");
         }
         
     }

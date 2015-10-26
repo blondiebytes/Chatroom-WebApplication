@@ -163,7 +163,8 @@ public class ChatWebApplet extends javax.swing.JApplet {
             while ((c = r.read()) != -1) {
                 answer += (char)c;
             }
-            // WHAT DO WE DO WITH ANSWER?
+            // WHAT DO WE DO WITH ANSWER? --> we make it the id
+             id = answer;
             
         } catch (MalformedURLException ex) {
             Logger.getLogger(ChatWebApplet.class.getName()).log(Level.SEVERE, null, ex);
@@ -191,7 +192,14 @@ public class ChatWebApplet extends javax.swing.JApplet {
             while ((c = r.read()) != -1) {
                 answer += (char)c;
             }
-            // WHAT DO WE DO WITH ANSWER?
+            // WHAT DO WE DO WITH ANSWER?  --> make sure it was all good
+            if (!answer.equals("Disconnect request confirmed")) {
+                try {
+                    throw new Exception();
+                } catch (Exception ex) {
+                    Logger.getLogger(ChatWebApplet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
             
         } catch (MalformedURLException ex) {
             Logger.getLogger(ChatWebApplet.class.getName()).log(Level.SEVERE, null, ex);
@@ -227,7 +235,14 @@ public class ChatWebApplet extends javax.swing.JApplet {
             while ((c = r.read()) != -1) {
                 answer += (char)c;
             }
-            // WHAT DO WE DO WITH ANSWER?
+            // WHAT DO WE DO WITH ANSWER? --> check to make sure it went through
+            if (!answer.equals("Sent")) {
+                try {
+                    throw new Exception();
+                } catch (Exception ex) {
+                    Logger.getLogger(ChatWebApplet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
             
         } catch (MalformedURLException ex) {
             Logger.getLogger(ChatWebApplet.class.getName()).log(Level.SEVERE, null, ex);
@@ -255,7 +270,10 @@ public class ChatWebApplet extends javax.swing.JApplet {
             while ((c = r.read()) != -1) {
                 answer += (char)c;
             }
-            // WHAT DO WE DO WITH ANSWER?
+            // WHAT DO WE DO WITH ANSWER? --> append messages to window
+            receivedMessageArea.append(answer);
+            // Will this create a new line with /n? or do we need to parse
+            // and say if we see a /n, then append the previous?
             
         } catch (MalformedURLException ex) {
             Logger.getLogger(ChatWebApplet.class.getName()).log(Level.SEVERE, null, ex);
