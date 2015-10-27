@@ -194,7 +194,7 @@ public class ChatWebApplet extends javax.swing.JApplet {
             while ((c = r.read()) != -1) {
                 answer += (char)c;
             }
-            String n = "You have left the chatroom." + "\n";
+            String n = "You have exited the chatroom." + "\n";
             receivedMessageArea.append(n);
             // WHAT DO WE DO WITH ANSWER?  --> make sure it was all good
             if (!answer.equals("Disconnect request confirmed")) {
