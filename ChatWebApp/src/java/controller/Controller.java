@@ -159,6 +159,7 @@ public class Controller extends HttpServlet {
         if (name != null) {
             messages.add(name+" has left the chat room");
             idNameMap.remove(id);
+            idMessageIndexMap.remove(id);
             // Send these strings back to the client
             out.print("Disconnect request confirmed");
         } else {

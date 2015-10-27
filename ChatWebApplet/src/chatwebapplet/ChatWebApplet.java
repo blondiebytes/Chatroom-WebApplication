@@ -275,7 +275,6 @@ public class ChatWebApplet extends javax.swing.JApplet {
         } catch (IOException ex) {
             Logger.getLogger(ChatWebApplet.class.getName()).log(Level.SEVERE, null, ex);
         }
-            System.out.println("Recieving");
     }
     
     private void messageToSendTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_messageToSendTextFieldActionPerformed
