@@ -114,6 +114,7 @@
     <Component class="javax.swing.JButton" name="disconnectButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Disconnect"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="disconnectButtonActionPerformed"/>
@@ -122,6 +123,7 @@
     <Component class="javax.swing.JButton" name="sendButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Send"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sendButtonActionPerformed"/>
@@ -133,7 +135,7 @@
     </Container>
     <Component class="javax.swing.JTextField" name="messageToSendTextField">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Type Message Here"/>
+        <Property name="text" type="java.lang.String" value="Type Your Name Here"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="messageToSendTextFieldActionPerformed"/>

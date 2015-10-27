@@ -65,6 +65,7 @@ public class ChatWebApplet extends javax.swing.JApplet {
         recievedMessageScrollPane.setViewportView(receivedMessageArea);
 
         disconnectButton.setText("Disconnect");
+        disconnectButton.setEnabled(false);
         disconnectButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 disconnectButtonActionPerformed(evt);
@@ -72,13 +73,14 @@ public class ChatWebApplet extends javax.swing.JApplet {
         });
 
         sendButton.setText("Send");
+        sendButton.setEnabled(false);
         sendButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sendButtonActionPerformed(evt);
             }
         });
 
-        messageToSendTextField.setText("Type Message Here");
+        messageToSendTextField.setText("Type Your Name Here");
         messageToSendTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 messageToSendTextFieldActionPerformed(evt);
@@ -168,6 +170,9 @@ public class ChatWebApplet extends javax.swing.JApplet {
       RecieveThread reciever = new RecieveThread(this);
       reciever.start();
       System.out.println("Reciever Running");
+      disconnectButton.setEnabled(true);
+      sendButton.setEnabled(true);
+      connectButton.setEnabled(false);
         
 }//GEN-LAST:event_connectButtonActionPerformed
 
@@ -205,6 +210,9 @@ public class ChatWebApplet extends javax.swing.JApplet {
             Logger.getLogger(ChatWebApplet.class.getName()).log(Level.SEVERE, null, ex);
         }
          System.out.println("Disconnecting from Server");
+      disconnectButton.setEnabled(false);
+      sendButton.setEnabled(false);
+      connectButton.setEnabled(true);
         
 }//GEN-LAST:event_disconnectButtonActionPerformed
 
