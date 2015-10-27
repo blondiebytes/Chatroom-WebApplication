@@ -119,7 +119,7 @@ public class Controller extends HttpServlet {
             idMessageIndexMap.put(uniqueID, 0);
             
             // Create 'entered' string
-            String userHasEnteredString = name + " has entered the chat room";
+            String userHasEnteredString = name + " has entered the chat room.";
             // Add it to our messages
             messages.add(userHasEnteredString);
             
@@ -157,7 +157,7 @@ public class Controller extends HttpServlet {
  public void disconnect(String id) {
        String name = idNameMap.get(id);
         if (name != null) {
-            messages.add(name+" has left the chat room");
+            messages.add(name+" has left the chatroom");
             idNameMap.remove(id);
             idMessageIndexMap.remove(id);
             // Send these strings back to the client

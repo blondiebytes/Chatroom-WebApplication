@@ -157,6 +157,7 @@ public class ChatWebApplet extends javax.swing.JApplet {
             }
             // WHAT DO WE DO WITH ANSWER? --> we make it the id
              id = answer;
+             
             
         } catch (MalformedURLException ex) {
             Logger.getLogger(ChatWebApplet.class.getName()).log(Level.SEVERE, null, ex);
@@ -193,6 +194,8 @@ public class ChatWebApplet extends javax.swing.JApplet {
             while ((c = r.read()) != -1) {
                 answer += (char)c;
             }
+            String n = "You have left the chatroom." + "\n";
+            receivedMessageArea.append(n);
             // WHAT DO WE DO WITH ANSWER?  --> make sure it was all good
             if (!answer.equals("Disconnect request confirmed")) {
                 try {
