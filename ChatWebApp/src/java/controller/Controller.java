@@ -148,6 +148,8 @@ public class Controller extends HttpServlet {
       for (int i = index; i < messages.size(); i++) {
           unseenMessages = messages.get(i) + "\n";
       }
+      // Set the index up to messages.size();
+      idMessageIndexMap.replace(id, index, messages.size());
       // Return the formatted string 
       out.print(unseenMessages);
   }

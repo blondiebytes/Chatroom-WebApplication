@@ -8,7 +8,7 @@ package chatwebapplet;
  * @author kathrynhodge
  */
 
-public class RecieveThread implements Runnable{
+public class RecieveThread extends Thread{
     ChatWebApplet applet;
 
     public RecieveThread(ChatWebApplet applet) {
@@ -16,7 +16,9 @@ public class RecieveThread implements Runnable{
     }
     
     public void run() {
-        applet.recieve();
+        while(true) {
+            applet.recieve();
+        }
     }
     
     

@@ -14,7 +14,6 @@ import java.util.logging.Logger;
 
 public class ChatWebApplet extends javax.swing.JApplet {
 
-  //  private Connection connection;
     private String id;
 
     public void init() {
@@ -23,22 +22,15 @@ public class ChatWebApplet extends javax.swing.JApplet {
 
                 public void run() {
                     initComponents();
-                  //  launchconnection();
+                    System.out.println("Init Components");
                 }
             });
         } catch (Exception ex) {
             receivedMessageArea.setText(ex.toString());
         }
-        RecieveThread reciever = new RecieveThread(this);
-        reciever.run();
+       
         
     }
-
-
-  //  private void launchconnection() {
-  //      connection = new Connection(this, receivedMessageArea);
-  //      connection.start();
-  //  }
 
     /** This method is called from within the init() method to
      * initialize the form.
@@ -67,6 +59,7 @@ public class ChatWebApplet extends javax.swing.JApplet {
 
         serverMessagesFieldLabel.setText("Chatroom");
 
+        receivedMessageArea.setEditable(false);
         receivedMessageArea.setColumns(20);
         receivedMessageArea.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         receivedMessageArea.setRows(5);
@@ -145,9 +138,7 @@ public class ChatWebApplet extends javax.swing.JApplet {
     }// </editor-fold>//GEN-END:initComponents
 
     private void connectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectButtonActionPerformed
-    //   if (!connection.isConnected()) {
-    //        connection.connectToServer();
-       // }
+        System.out.println("Connecting to Server");
       try {
             QueryString cmd = new QueryString("cmd", "CONNECT");
             QueryString nameQuery = new QueryString("name",messageToSendTextField.getText());
@@ -173,11 +164,17 @@ public class ChatWebApplet extends javax.swing.JApplet {
         } catch (IOException ex) {
             Logger.getLogger(ChatWebApplet.class.getName()).log(Level.SEVERE, null, ex);
         }
+      System.out.println("Connected to Server");
+      // So we are always recieving
+      RecieveThread reciever = new RecieveThread(this);
+      reciever.start();
+      System.out.println("Reciever Running");
         
 }//GEN-LAST:event_connectButtonActionPerformed
 
     private void disconnectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disconnectButtonActionPerformed
-      try {
+       System.out.println("Disconnecting to Server");
+        try {
             QueryString cmd = new QueryString("cmd", "DISCONNECT");
             QueryString idQuery = new QueryString("id",id);
             URL url;
@@ -208,17 +205,12 @@ public class ChatWebApplet extends javax.swing.JApplet {
         } catch (IOException ex) {
             Logger.getLogger(ChatWebApplet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-     //   if (connection.isConnected()) {
-     //       connection.disconnectFromServer();
-     //   }
-        
+         System.out.println("Disconnecting from Server");
         
 }//GEN-LAST:event_disconnectButtonActionPerformed
 
     private void sendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendButtonActionPerformed
-        // TODO add your handling code here:
-        // Set ID, set message
+        System.out.println("About to Send Message");
          try {
             QueryString cmd = new QueryString("cmd", "SEND");
             QueryString messageQuery = new QueryString("message",messageToSendTextField.getText());
@@ -251,6 +243,7 @@ public class ChatWebApplet extends javax.swing.JApplet {
         } catch (IOException ex) {
             Logger.getLogger(ChatWebApplet.class.getName()).log(Level.SEVERE, null, ex);
         }
+          System.out.println("Sent Message");
         
     }//GEN-LAST:event_sendButtonActionPerformed
 
@@ -282,6 +275,7 @@ public class ChatWebApplet extends javax.swing.JApplet {
         } catch (IOException ex) {
             Logger.getLogger(ChatWebApplet.class.getName()).log(Level.SEVERE, null, ex);
         }
+            System.out.println("Recieving");
     }
     
     private void messageToSendTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_messageToSendTextFieldActionPerformed
