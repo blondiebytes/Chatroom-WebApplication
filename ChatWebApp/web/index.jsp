@@ -11,11 +11,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Http Echo Web App</title>
+        <title>Chat Web Applet</title>
     </head>
     <body>
-        <applet code="httpechoapplet.HttpEchoApplet"
-                archive="HttpEchoApplet.jar"
+        <applet code="chatwebapplet.ChatWebApplet"
+                archive="ChatWebApplet.jar"
                 width="400"
                 height="400"/>
     </body>

@@ -109,6 +109,7 @@ public class Controller extends HttpServlet {
     }// </editor-fold>
     
    public void connect(String name) {
+       
         // Set unique ID
             String uniqueID = ""+ count++;
             
